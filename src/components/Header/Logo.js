@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
-const StyledLogoWrapper = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const StyledLogoWrapper = styled.section``;
+const StyledLogo = styled.img`
+  padding-left: 2rem;
 `;
-const StyledLogo = styled.img``;
 
 export default function Logo() {
   return (
