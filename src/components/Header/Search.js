@@ -15,7 +15,8 @@ const StyledSearchInput = styled.input.attrs(() => ({
   height: 60%;
   padding: 1rem 2rem;
   color: #fff;
-  min-width: 50rem;
+  border-radius: 2px;
+
   font-family: inherit;
   font-size: 1.6rem;
 
