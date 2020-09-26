@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSidenavWrapper = styled.nav`
@@ -13,7 +13,6 @@ const StyledSidenavWrapper = styled.nav`
 const StyledSidenavContent = styled.section``;
 const StyledList = styled.ul`
   display: grid;
-  grid-template-rows: repeat();
 `;
 
 const StyledListItem = styled.li``;
@@ -22,7 +21,8 @@ const StyledLink = styled(Link)`
   display: block;
   font-size: 2rem;
   transition: all 0.25s ease;
-  :hover {
+  :hover,
+  &.active {
     color: ${({ theme }) => theme.colors.primary};
     background: rgba(255, 255, 255, 0.1);
   }
@@ -32,6 +32,11 @@ export default function Sidenav() {
     <StyledSidenavWrapper>
       <StyledSidenavContent>
         <StyledList>
+          <StyledListItem>
+            <StyledLink exact to="/">
+              Home
+            </StyledLink>
+          </StyledListItem>
           <StyledListItem>
             <StyledLink to="/new">New releases</StyledLink>
           </StyledListItem>
@@ -45,7 +50,7 @@ export default function Sidenav() {
             <StyledLink to="/favourites">Favourites</StyledLink>
           </StyledListItem>
           <StyledListItem>
-            <StyledLink to="/watchlater ">Watch later</StyledLink>
+            <StyledLink to="/saved">Watch later</StyledLink>
           </StyledListItem>
         </StyledList>
       </StyledSidenavContent>

@@ -1,6 +1,7 @@
 import React from "react";
 // import PropTypes from "prop-types";
 import styled from "styled-components";
+import Routes from "../routes/Routes";
 import Header from "./Header/Header";
 import Sidenav from "./Sidenav/Sidenav";
 const StyledApp = styled.section`
@@ -15,6 +16,7 @@ function App() {
     <StyledApp>
       <Header />
       <Sidenav />
+      <Routes />
     </StyledApp>
   );
 }
