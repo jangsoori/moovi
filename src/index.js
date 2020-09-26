@@ -1,20 +1,24 @@
 //REACT IMPORTS
 import React from "react";
 import ReactDOM from "react-dom";
-
-//REDUX IMPORTS
 import { Provider } from "react-redux";
 import store from "./redux/store";
 //COMPONENT IMPORTS
 import App from "./components/App";
+import { GlobalStyles } from "./Global";
+import Theme from "./Theme";
 
-//REDUX SETUP
+//BABEL regenerationRuntime is not defined fix
+import "regenerator-runtime/runtime"; //REDUX IMPORTS
 
 const root = document.querySelector("#root");
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Theme>
+      <GlobalStyles />
+      <App />
+    </Theme>
   </Provider>,
   root
 );
