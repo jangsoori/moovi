@@ -7,6 +7,7 @@ const StyledHeader = styled.header`
   background: ${({ theme }) => theme.colors.primary};
   height: 6.5rem;
   grid-row: 1/2;
+  grid-column: 1/3;
   display: grid;
   grid-template-columns: 240px 1fr;
   align-items: center;
