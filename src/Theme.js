@@ -6,6 +6,7 @@ const theme = {
   fonts: ["Montserrat", "sans-serif"],
   colors: {
     primary: `#FF5555`,
+    sidebar: `#282828`,
   },
 };
 
