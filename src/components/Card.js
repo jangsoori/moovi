@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 export const StyledCard = styled.li`
   position: relative;
   width: 185px;
@@ -12,6 +13,7 @@ export const StyledCard = styled.li`
   }
 `;
 
+const StyledLink = styled(Link)``;
 const StyledImg = styled.img`
   box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.5);
 `;
@@ -65,12 +67,17 @@ function Card(props) {
     });
   };
   return (
-    <StyledCard>
-      <StyledImg src={`http://image.tmdb.org/t/p/w185${poster_path}`} alt="" />
-      <StyledTitle>{title}</StyledTitle>
-      <StyledMeta>{renderGenres(genres)}</StyledMeta>
-      <StyledScore>{vote_average.toFixed(1)}</StyledScore>
-    </StyledCard>
+    <StyledLink to={`/movies/${id}`}>
+      <StyledCard>
+        <StyledImg
+          src={`http://image.tmdb.org/t/p/w185${poster_path}`}
+          alt=""
+        />
+        <StyledTitle>{title}</StyledTitle>
+        <StyledMeta>{renderGenres(genres)}</StyledMeta>
+        <StyledScore>{vote_average.toFixed(1)}</StyledScore>
+      </StyledCard>
+    </StyledLink>
   );
 }
 
