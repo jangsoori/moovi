@@ -8,11 +8,23 @@ function moviesReducer(state = null, action) {
       return action.payload;
     case "GET_UPCOMING_MOVIES":
       return action.payload;
+    case "CLEAR_STATE":
+      return null;
     default:
       return state;
   }
 }
 
+function movieReducer(state = null, action) {
+  switch (action.type) {
+    case "GET_MOVIE":
+      return action.payload;
+    case "CLEAR_STATE":
+      return null;
+    default:
+      return state;
+  }
+}
 function searchReducer(state = null, action) {
   switch (action.type) {
     case "SEARCH_MOVIE":
@@ -42,6 +54,7 @@ function themeReducer(state = "light", action) {
 export default combineReducers({
   search: searchReducer,
   movies: moviesReducer,
+  movie: movieReducer,
   genres: genresReducer,
   theme: themeReducer,
 });

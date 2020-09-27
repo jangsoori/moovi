@@ -15,7 +15,7 @@ export const searchMovie = (query) => async (dispatch) => {
 
 export const getNewMovies = () => async (dispatch) => {
   const response = await axios.get(
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US`
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`
   );
   const data = await response.data;
   await dispatch({
@@ -25,7 +25,7 @@ export const getNewMovies = () => async (dispatch) => {
 };
 export const getUpcomingMovies = () => async (dispatch) => {
   const response = await axios.get(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US`
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
   );
   const data = await response.data;
   await dispatch({
@@ -36,13 +36,31 @@ export const getUpcomingMovies = () => async (dispatch) => {
 
 export const getTopMovies = () => async (dispatch) => {
   const response = await axios.get(
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&`
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US`
   );
   const data = await response.data;
   await dispatch({
     type: "GET_TOP_MOVIES",
     payload: data,
   });
+};
+
+export const getMovie = (id) => async (dispatch) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+  );
+  const data = await response.data;
+  await dispatch({
+    type: "GET_MOVIE",
+    payload: data,
+  });
+};
+
+export const clearOnUnmount = () => {
+  return {
+    type: "CLEAR_STATE",
+    payload: null,
+  };
 };
 
 export const getGenres = () => async (dispatch) => {
