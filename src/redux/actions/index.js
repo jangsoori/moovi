@@ -23,6 +23,27 @@ export const getNewMovies = () => async (dispatch) => {
     payload: data,
   });
 };
+export const getUpcomingMovies = () => async (dispatch) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US`
+  );
+  const data = await response.data;
+  await dispatch({
+    type: "GET_UPCOMING_MOVIES",
+    payload: data,
+  });
+};
+
+export const getTopMovies = () => async (dispatch) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&`
+  );
+  const data = await response.data;
+  await dispatch({
+    type: "GET_TOP_MOVIES",
+    payload: data,
+  });
+};
 
 export const getGenres = () => async (dispatch) => {
   const response = await axios.get(

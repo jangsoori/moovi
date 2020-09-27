@@ -4,6 +4,10 @@ function moviesReducer(state = null, action) {
   switch (action.type) {
     case "GET_NEWEST":
       return action.payload;
+    case "GET_TOP_MOVIES":
+      return action.payload;
+    case "GET_UPCOMING_MOVIES":
+      return action.payload;
     default:
       return state;
   }
