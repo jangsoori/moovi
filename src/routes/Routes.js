@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Favourites from "./Favourites";
 import Home from "./Home";
+import Movie from "./Movie";
 import New from "./New";
 import Saved from "./Saved";
 import Top from "./Top";
@@ -16,6 +17,7 @@ export default function Routes() {
       <Route path="/upcoming" component={Upcoming} />
       <Route path="/saved" component={Saved} />
       <Route path="/favourites" component={Favourites} />
+      <Route exact path={`/movies/:id`} component={Movie} />
     </Switch>
   );
 }
