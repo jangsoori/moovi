@@ -9,6 +9,7 @@ const Title = styled.h4`
   color: black;
   font-size: 3.6rem;
   font-weight: normal;
+  margin-bottom: 5rem;
 `;
 const Content = styled.section``;
 export default function Section({ children, title }) {
