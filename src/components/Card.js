@@ -6,9 +6,13 @@ import { Link } from "react-router-dom";
 export const StyledCard = styled.li`
   position: relative;
   width: 185px;
+
   transition: transform 0.2s ease;
+
+  ${"" /* Removes buggy animation "shake" */}
+  backface-visibility: hidden;
   :hover {
-    transform: translateY(-20px);
+    transform: scale(1.1);
     cursor: pointer;
   }
 `;
@@ -47,6 +51,21 @@ const StyledScore = styled.p`
   justify-content: center;
 `;
 
+const StyledActions = styled.section`
+  display: flex;
+  ${"" /* position: absolute;
+  top: 0;
+  left: 0; */}
+`;
+
+const StyledAction = styled.i`
+  margin-right: 1rem;
+  color: black;
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
 function Card(props) {
   const { poster_path, title, vote_average, genre_ids, id } = props.movie;
   const genres = [];
@@ -67,8 +86,8 @@ function Card(props) {
     });
   };
   return (
-    <StyledLink to={`/movies/${id}`}>
-      <StyledCard>
+    <StyledCard>
+      <StyledLink to={`/movies/${id}`}>
         <StyledImg
           src={`http://image.tmdb.org/t/p/w185${poster_path}`}
           alt=""
@@ -76,8 +95,15 @@ function Card(props) {
         <StyledTitle>{title}</StyledTitle>
         <StyledMeta>{renderGenres(genres)}</StyledMeta>
         <StyledScore>{vote_average.toFixed(1)}</StyledScore>
-      </StyledCard>
-    </StyledLink>
+      </StyledLink>
+      <StyledActions>
+        <StyledAction
+          onClick={(e) => handleHeartClick()}
+          className="far fa-heart fa-2x"
+        ></StyledAction>
+        <StyledAction className="far fa-clock fa-2x"></StyledAction>
+      </StyledActions>
+    </StyledCard>
   );
 }
 
