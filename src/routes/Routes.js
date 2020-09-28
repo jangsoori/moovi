@@ -5,6 +5,7 @@ import Home from "./Home";
 import Movie from "./Movie";
 import New from "./New";
 import Saved from "./Saved";
+import SearchResult from "./SearchResult";
 import Top from "./Top";
 import Upcoming from "./Upcoming";
 
@@ -18,6 +19,7 @@ export default function Routes() {
       <Route path="/saved" component={Saved} />
       <Route path="/favourites" component={Favourites} />
       <Route exact path={`/movies/:id`} component={Movie} />
+      <Route exact path={`/search/:query`} component={SearchResult} />
     </Switch>
   );
 }

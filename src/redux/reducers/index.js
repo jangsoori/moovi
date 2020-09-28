@@ -52,7 +52,7 @@ function themeReducer(state = "light", action) {
 }
 
 export default combineReducers({
-  search: searchReducer,
+  searchResults: searchReducer,
   movies: moviesReducer,
   movie: movieReducer,
   genres: genresReducer,

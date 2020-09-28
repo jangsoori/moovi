@@ -1,7 +1,8 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledSearchWrapper = styled.section`
+const StyledSearchWrapper = styled.form`
   height: 100%;
   display: flex;
   align-items: center;
@@ -27,9 +28,21 @@ const StyledSearchInput = styled.input.attrs(() => ({
 `;
 
 export default function Search() {
+  const [input, setInput] = React.useState("");
+  const history = useHistory();
   return (
-    <StyledSearchWrapper>
-      <StyledSearchInput />
+    <StyledSearchWrapper
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        history.push(`/search/${input}`);
+        setInput("");
+      }}
+    >
+      <StyledSearchInput
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
     </StyledSearchWrapper>
   );
 }
