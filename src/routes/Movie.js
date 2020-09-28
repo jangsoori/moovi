@@ -63,9 +63,7 @@ function Movie({ match, getMovie, clearOnUnmount, movie }) {
   }
 
   const renderPeople = (list) => {
-    return list
-      .slice(0, 5)
-      .map((person) => <li key={person.id}>{person.name}</li>);
+    return list.slice(0, 5).map((person, i) => <li key={i}>{person.name}</li>);
   };
 
   return (
