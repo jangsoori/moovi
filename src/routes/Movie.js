@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Axios from "axios";
 //BABEL regenerationRuntime is not defined fix
 import "regenerator-runtime/runtime"; //REDUX IMPORTS
+import Loading from "../components/Loading";
 const API_KEY = process.env.API_KEY;
 
 const MovieWrapper = styled.section`
@@ -59,7 +60,7 @@ function Movie({ match, getMovie, clearOnUnmount, movie }) {
     };
   }, []);
   if (!movie) {
-    return <Section title="Loading"></Section>;
+    return <Loading />;
   }
 
   const renderPeople = (list) => {

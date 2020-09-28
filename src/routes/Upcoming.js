@@ -4,12 +4,13 @@ import Section from "../components/Section";
 import { getUpcomingMovies } from "../redux/actions";
 import PropTypes from "prop-types";
 import MoviesGrid from "../components/MoviesGrid";
+import Loading from "../components/Loading";
 function Upcoming({ movies, getUpcomingMovies }) {
   useEffect(() => {
     getUpcomingMovies();
   }, []);
   if (!movies) {
-    return <Section title="Loading..."></Section>;
+    return <Loading />;
   }
   return (
     <Section title="Coming soon">

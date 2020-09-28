@@ -4,13 +4,14 @@ import MoviesGrid from "../components/MoviesGrid";
 import Section from "../components/Section";
 import { getNewMovies } from "../redux/actions";
 import PropTypes from "prop-types";
+import Loading from "../components/Loading";
 function New({ movies, getNewMovies }) {
   useEffect(() => {
     getNewMovies();
   }, []);
 
   if (!movies) {
-    return <Section title="Loading..."></Section>;
+    return <Loading />;
   }
 
   return (
