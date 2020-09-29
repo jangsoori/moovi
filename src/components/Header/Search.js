@@ -56,13 +56,16 @@ function Search(props) {
   const [input, setInput] = React.useState("");
   const history = useHistory();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    history.push(`/search/${input}`);
+    setInput("");
+  };
+
   return (
     <StyledSearchWrapper
       onSubmit={(e) => {
-        e.preventDefault();
-
-        history.push(`/search/${input}`);
-        setInput("");
+        handleSubmit(e);
       }}
     >
       <StyledSearchInput
@@ -73,9 +76,4 @@ function Search(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    movies: state.suggestions,
-  };
-};
-export default connect(mapStateToProps, { getSearchSuggestions })(Search);
+export default Search;

@@ -1,37 +1,26 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import MoviesGrid from "../components/MoviesGrid";
 import Section from "../components/Section";
-import { getNewMovies, clearOnUnmount } from "../redux/actions";
-import PropTypes from "prop-types";
 import Loading from "../components/Loading";
-function New({ movies, getNewMovies, clearOnUnmount }) {
-  useEffect(() => {
-    getNewMovies();
-    return () => {
-      clearOnUnmount();
-    };
-  }, []);
+import { useFetch } from "../hooks/useFetch";
 
-  if (!movies) {
-    return <Loading />;
-  }
+const API_KEY = process.env.API_KEY;
+
+function New() {
+  const movies = useFetch(
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`,
+    {}
+  );
 
   return (
     <Section title="New releases">
-      <MoviesGrid movies={movies.results} />
+      {!movies.response ? (
+        <Loading />
+      ) : (
+        <MoviesGrid movies={movies.response.results} />
+      )}
     </Section>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    movies: state.movies,
-  };
-};
-
-New.propTypes = {
-  getNewMovies: PropTypes.func.isRequired,
-  movies: PropTypes.object,
-};
-export default connect(mapStateToProps, { getNewMovies, clearOnUnmount })(New);
+export default New;

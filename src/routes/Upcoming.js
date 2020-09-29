@@ -1,37 +1,26 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import Section from "../components/Section";
-import { clearOnUnmount, getUpcomingMovies } from "../redux/actions";
-import PropTypes from "prop-types";
 import MoviesGrid from "../components/MoviesGrid";
 import Loading from "../components/Loading";
-function Upcoming({ movies, getUpcomingMovies, clearOnUnmount }) {
-  useEffect(() => {
-    getUpcomingMovies();
-    return () => {
-      clearOnUnmount();
-    };
-  }, []);
-  if (!movies) {
-    return <Loading />;
-  }
+import { useFetch } from "../hooks/useFetch";
+
+const API_KEY = process.env.API_KEY;
+
+function Upcoming() {
+  const movies = useFetch(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`,
+    {}
+  );
+
   return (
     <Section title="Coming soon">
-      <MoviesGrid movies={movies.results} />
+      {!movies.response ? (
+        <Loading />
+      ) : (
+        <MoviesGrid movies={movies.response.results} />
+      )}
     </Section>
   );
 }
 
-Upcoming.propTypes = {
-  getUpcomingMovies: PropTypes.func,
-  movies: PropTypes.object,
-};
-
-const mapStateToProps = (state) => {
-  return {
-    movies: state.movies,
-  };
-};
-export default connect(mapStateToProps, { getUpcomingMovies, clearOnUnmount })(
-  Upcoming
-);
+export default Upcoming;

@@ -1,41 +1,28 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import Axios from "axios";
+import React, { useState } from "react";
 import Loading from "../components/Loading";
 import MoviesGrid from "../components/MoviesGrid";
 import Section from "../components/Section";
-import { clearOnUnmount, searchMovie } from "../redux/actions";
+const API_KEY = process.env.API_KEY;
 
 function SearchResult(props) {
-  //Only fire this effect after search results (its key) change
-  /////TODO: FIX INFINITE LOOP!
-  const [loading, setLoading] = React.useState(true);
-  console.log(props);
-  useEffect(() => {
-    props.searchMovie(props.match.params.query);
-    setLoading(false);
-    return () => {
-      setLoading(true);
-    };
-  }, [props.location.key]);
-  // if (!props.movies) {
-  //   return <Section title="Loading..."></Section>;
-  // }
+  const [movies, setMovies] = useState();
+  const fetchSearch = async () => {
+    const response = await Axios.get(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${props.match.params.query}&page=1`
+    );
+    const data = await response.data;
+    setMovies(data);
+  };
 
-  if (loading) {
-    return <Loading />;
-  }
+  React.useEffect(() => {
+    fetchSearch();
+  }, [props.match.params.query]);
   return (
     <Section title="Search results">
-      <MoviesGrid movies={props.movies} />
+      {!movies ? <Loading /> : <MoviesGrid movies={movies.results} />}
     </Section>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    movies: state.searchResults && state.searchResults.results,
-  };
-};
-export default connect(mapStateToProps, { searchMovie, clearOnUnmount })(
-  SearchResult
-);
+export default SearchResult;

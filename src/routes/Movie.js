@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import Section from "../components/Section";
-import { getMovie, clearOnUnmount } from "../redux/actions";
 import styled from "styled-components";
-import Axios from "axios";
 //BABEL regenerationRuntime is not defined fix
 import "regenerator-runtime/runtime"; //REDUX IMPORTS
 import Loading from "../components/Loading";
+import { useFetch } from "../hooks/useFetch";
+
 const API_KEY = process.env.API_KEY;
 
 const MovieWrapper = styled.section`
@@ -42,24 +41,18 @@ const DetailsTitle = styled.p`
 `;
 const DetailsContent = styled.section``;
 
-function Movie({ match, getMovie, clearOnUnmount, movie }) {
-  const [movieCast, setMovieCast] = React.useState(null);
-
-  const fetchCast = async (id) => {
-    const res = await Axios.get(
-      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`
-    );
-    const data = await res.data;
-    setMovieCast(data);
-  };
-  useEffect(() => {
-    getMovie(match.params.id);
-    fetchCast(match.params.id);
-    return () => {
-      clearOnUnmount();
-    };
-  }, []);
-  if (!movie) {
+function Movie({ match }) {
+  console.log(match.params.id);
+  const movieCast = useFetch(
+    `https://api.themoviedb.org/3/movie/${match.params.id}/credits?api_key=${API_KEY}`,
+    {}
+  );
+  const movie = useFetch(
+    `https://api.themoviedb.org/3/movie/${match.params.id}?api_key=${API_KEY}&language=en-US`,
+    {}
+  );
+  console.log(movie);
+  if (!movie.response || !movieCast.response) {
     return <Loading />;
   }
 
@@ -68,11 +61,11 @@ function Movie({ match, getMovie, clearOnUnmount, movie }) {
   };
 
   return (
-    <Section title={movie.title}>
+    <Section title={movie.response.title}>
       <MovieWrapper>
         <MoviePosterWrapper>
           <MoviePoster
-            src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w400${movie.response.poster_path}`}
           />
         </MoviePosterWrapper>
         <MovieInfoWrapper>
@@ -80,7 +73,7 @@ function Movie({ match, getMovie, clearOnUnmount, movie }) {
             <MovieInfoItem>
               <DetailsTitle>Genres</DetailsTitle>
               <DetailsContent style={{ display: "flex" }}>
-                {movie.genres.map((genre) => (
+                {movie.response.genres.map((genre) => (
                   <Genre key={genre.id}>{genre.name}</Genre>
                 ))}
               </DetailsContent>
@@ -88,12 +81,16 @@ function Movie({ match, getMovie, clearOnUnmount, movie }) {
             <MovieInfoItem>
               <DetailsTitle>Website</DetailsTitle>
               <DetailsContent>
-                {!movie.homepage ||
-                movie.homepage === "http://essaymonkey.net/" ? (
+                {!movie.response.homepage ||
+                movie.response.homepage === "http://essaymonkey.net/" ? (
                   <p>None</p>
                 ) : (
-                  <a href={movie.homepage} target="_blank" rel="noreferrer">
-                    {movie.homepage}
+                  <a
+                    href={movie.response.homepage}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {movie.response.homepage}
                   </a>
                 )}
               </DetailsContent>
@@ -101,31 +98,31 @@ function Movie({ match, getMovie, clearOnUnmount, movie }) {
             <MovieInfoItem>
               <DetailsTitle>Release date</DetailsTitle>
               <DetailsContent>
-                <p>{movie.release_date}</p>
+                <p>{movie.response.release_date}</p>
               </DetailsContent>
             </MovieInfoItem>
             <MovieInfoItem>
               <DetailsTitle>Runtime</DetailsTitle>
               <DetailsContent>
-                <p>{movie.runtime} min</p>
+                <p>{movie.response.runtime} min</p>
               </DetailsContent>
             </MovieInfoItem>
             <MovieInfoItem>
               <DetailsTitle>Plot</DetailsTitle>
               <DetailsContent>
-                <p>{movie.overview}</p>
+                <p>{movie.response.overview}</p>
               </DetailsContent>
             </MovieInfoItem>
             <MovieInfoItem>
               <DetailsTitle>Producers</DetailsTitle>
               <DetailsContent>
-                <ul>{movieCast && renderPeople(movieCast.crew)}</ul>
+                <ul>{movieCast && renderPeople(movieCast.response.crew)}</ul>
               </DetailsContent>
             </MovieInfoItem>
             <MovieInfoItem>
               <DetailsTitle>Cast</DetailsTitle>
               <DetailsContent>
-                <ul>{movieCast && renderPeople(movieCast.cast)}</ul>
+                <ul>{movieCast && renderPeople(movieCast.response.cast)}</ul>
               </DetailsContent>
             </MovieInfoItem>
           </MovieInfoItems>
@@ -137,17 +134,6 @@ function Movie({ match, getMovie, clearOnUnmount, movie }) {
 
 Movie.propTypes = {
   match: PropTypes.object,
-  getMovie: PropTypes.func,
-  getCredits: PropTypes.func,
-  clearOnUnmount: PropTypes.func,
-  movie: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({
-  movie: state.movie,
-});
-
-export default connect(mapStateToProps, {
-  getMovie,
-  clearOnUnmount,
-})(Movie);
+export default Movie;

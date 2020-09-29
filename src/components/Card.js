@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
 export const StyledCard = styled.li`
   position: relative;
   width: 185px;
@@ -65,14 +65,17 @@ const StyledAction = styled.i`
     color: ${({ theme }) => theme.colors.primary};
   }
 `;
+const API_KEY = process.env.API_KEY;
 
 function Card(props) {
   const { poster_path, title, vote_average, genre_ids, id } = props.movie;
+  const fetchGenres = useFetch(
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
+  );
   const genres = [];
-
   //For every item in genres, check if its ID equals to items in an array. If yes, render Genre name
-  props.genres &&
-    props.genres.filter((genre) => {
+  fetchGenres.response &&
+    fetchGenres.response.genres.filter((genre) => {
       return genre_ids.forEach((id) => {
         if (genre.id === id) {
           genres.push(genre);
@@ -109,12 +112,6 @@ function Card(props) {
 
 Card.propTypes = {
   movie: PropTypes.object,
-  genres: PropTypes.array,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    genres: state.genres,
-  };
-};
-export default connect(mapStateToProps)(Card);
+export default Card;
