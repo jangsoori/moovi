@@ -101,7 +101,7 @@ function Card(props) {
       </StyledLink>
       <StyledActions>
         <StyledAction
-          onClick={(e) => handleHeartClick()}
+          onClick={() => handleFavClick()}
           className="far fa-heart fa-2x"
         ></StyledAction>
         <StyledAction className="far fa-clock fa-2x"></StyledAction>
