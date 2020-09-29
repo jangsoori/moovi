@@ -1,10 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { getSearchSuggestions } from "../../redux/actions";
 
 const StyledSearchWrapper = styled.form`
   height: 100%;
   display: flex;
+  position: relative;
   align-items: center;
 `;
 const StyledSearchInput = styled.input.attrs(() => ({
@@ -27,9 +30,32 @@ const StyledSearchInput = styled.input.attrs(() => ({
   }
 `;
 
-export default function Search() {
+// const StyledSuggestions = styled.ul`
+//   position: absolute;
+//   left: 0;
+//   bottom: 0;
+//   ${"" /* display: flex;
+//   flex-direction: column; */}
+// `;
+// const StyledSuggestion = styled.li`
+//   ${"" /* display: block; */}
+// `;
+
+// const renderSuggestions = (list) => {
+//   return list.map((item) => {
+//     return <StyledSuggestion key={item.id}>{item.title}</StyledSuggestion>;
+//   });
+// };
+// function Suggestions({ movies }) {
+//   return (
+//     <StyledSuggestions>{movies && renderSuggestions(movies)}</StyledSuggestions>
+//   );
+// }
+
+function Search(props) {
   const [input, setInput] = React.useState("");
   const history = useHistory();
+
   return (
     <StyledSearchWrapper
       onSubmit={(e) => {
@@ -46,3 +72,10 @@ export default function Search() {
     </StyledSearchWrapper>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    movies: state.suggestions,
+  };
+};
+export default connect(mapStateToProps, { getSearchSuggestions })(Search);
