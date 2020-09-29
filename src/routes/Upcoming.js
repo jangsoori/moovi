@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Section from "../components/Section";
-import { getUpcomingMovies } from "../redux/actions";
+import { clearOnUnmount, getUpcomingMovies } from "../redux/actions";
 import PropTypes from "prop-types";
 import MoviesGrid from "../components/MoviesGrid";
 import Loading from "../components/Loading";
-function Upcoming({ movies, getUpcomingMovies }) {
+function Upcoming({ movies, getUpcomingMovies, clearOnUnmount }) {
   useEffect(() => {
     getUpcomingMovies();
+    return () => {
+      clearOnUnmount();
+    };
   }, []);
   if (!movies) {
     return <Loading />;
@@ -29,4 +32,6 @@ const mapStateToProps = (state) => {
     movies: state.movies,
   };
 };
-export default connect(mapStateToProps, { getUpcomingMovies })(Upcoming);
+export default connect(mapStateToProps, { getUpcomingMovies, clearOnUnmount })(
+  Upcoming
+);

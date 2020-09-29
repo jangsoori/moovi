@@ -2,12 +2,15 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import MoviesGrid from "../components/MoviesGrid";
 import Section from "../components/Section";
-import { getNewMovies } from "../redux/actions";
+import { getNewMovies, clearOnUnmount } from "../redux/actions";
 import PropTypes from "prop-types";
 import Loading from "../components/Loading";
-function New({ movies, getNewMovies }) {
+function New({ movies, getNewMovies, clearOnUnmount }) {
   useEffect(() => {
     getNewMovies();
+    return () => {
+      clearOnUnmount();
+    };
   }, []);
 
   if (!movies) {
@@ -31,4 +34,4 @@ New.propTypes = {
   getNewMovies: PropTypes.func.isRequired,
   movies: PropTypes.object,
 };
-export default connect(mapStateToProps, { getNewMovies })(New);
+export default connect(mapStateToProps, { getNewMovies, clearOnUnmount })(New);
