@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -64,8 +64,14 @@ const StyledAction = styled.i`
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
   }
+  &.fas {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 const API_KEY = process.env.API_KEY;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function Card(props) {
   const { poster_path, title, vote_average, genre_ids, id } = props.movie;
@@ -88,6 +94,7 @@ function Card(props) {
       return <StyledMetaItem key={genre.id}>{genre.name}</StyledMetaItem>;
     });
   };
+
   return (
     <StyledCard>
       <StyledLink to={`/movies/${id}`}>
@@ -100,10 +107,7 @@ function Card(props) {
         <StyledScore>{vote_average.toFixed(1)}</StyledScore>
       </StyledLink>
       <StyledActions>
-        <StyledAction
-          onClick={() => handleFavClick()}
-          className="far fa-heart fa-2x"
-        ></StyledAction>
+        <StyledAction className={`far fa-heart fa-2x`}></StyledAction>
         <StyledAction className="far fa-clock fa-2x"></StyledAction>
       </StyledActions>
     </StyledCard>

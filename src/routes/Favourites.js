@@ -3,8 +3,10 @@ import MoviesGrid from "../components/MoviesGrid";
 import Section from "../components/Section";
 
 export default function Favourites() {
-  const movies = JSON.parse(localStorage.getItem("favourites")) || [];
-  console.log(movies);
+  const [movies, setMovies] = React.useState();
+  // React.useEffect(() => {
+  //   setMovies(JSON.parse(localStorage.getItem("favourites")) || []);
+  // }, [movies]);
   return (
     <Section title="Your favourites">
       <MoviesGrid movies={movies} />
