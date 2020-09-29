@@ -33,6 +33,14 @@ function searchReducer(state = null, action) {
       return state;
   }
 }
+function suggestionsReducer(state = null, action) {
+  switch (action.type) {
+    case "SEARCH_MOVIE_SUGGESTIONS":
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 function genresReducer(state = null, action) {
   switch (action.type) {
@@ -53,6 +61,7 @@ function themeReducer(state = "light", action) {
 
 export default combineReducers({
   searchResults: searchReducer,
+  suggestions: suggestionsReducer,
   movies: moviesReducer,
   movie: movieReducer,
   genres: genresReducer,

@@ -12,6 +12,17 @@ export const searchMovie = (query) => async (dispatch) => {
     payload: data,
   });
 };
+export const getSearchSuggestions = (query) => async (dispatch) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1`
+  );
+  const data = await response.data;
+
+  await dispatch({
+    type: "SEARCH_MOVIE_SUGGESTIONS",
+    payload: data,
+  });
+};
 
 export const getNewMovies = () => async (dispatch) => {
   const response = await axios.get(
