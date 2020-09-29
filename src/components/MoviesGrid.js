@@ -17,12 +17,14 @@ const renderMovies = (list) => {
   return list.map((item, i) => <Card movie={item} key={i} />);
 };
 export default function MoviesGrid(props) {
+  console.log(props);
+
   if (!props.movies) {
-    return <div>Loading</div>;
+    return null;
   }
   return <StyledGrid>{renderMovies(props.movies)}</StyledGrid>;
 }
 
 MoviesGrid.propTypes = {
-  movies: PropTypes.array.isRequired,
+  movies: PropTypes.array,
 };
