@@ -50,7 +50,7 @@ const StyledSearchInput = styled.input.attrs(() => ({
 //   );
 // }
 
-function Search(props) {
+function Search() {
   const [input, setInput] = React.useState("");
   const history = useHistory();
 
