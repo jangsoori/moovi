@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import PropTypes from "prop-types";
 import Card from "./Card";
-import Loading from "./Loading";
+
 export const StyledGrid = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
