@@ -95,6 +95,13 @@ function Card(props) {
     });
   };
 
+  const saveItem = () => {
+    let existingEntries = JSON.parse(localStorage.getItem("favourites")) || [];
+    existingEntries.push(props.movie);
+    localStorage.setItem("favourites", JSON.stringify(existingEntries));
+    props.handleChange && props.handleChange(existingEntries);
+  };
+
   return (
     <StyledCard>
       <StyledLink to={`/movies/${id}`}>
@@ -107,7 +114,10 @@ function Card(props) {
         <StyledScore>{vote_average.toFixed(1)}</StyledScore>
       </StyledLink>
       <StyledActions>
-        <StyledAction className={`far fa-heart fa-2x`}></StyledAction>
+        <StyledAction
+          onClick={() => saveItem()}
+          className={`far fa-heart fa-2x`}
+        ></StyledAction>
         <StyledAction className="far fa-clock fa-2x"></StyledAction>
       </StyledActions>
     </StyledCard>

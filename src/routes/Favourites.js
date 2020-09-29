@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MoviesGrid from "../components/MoviesGrid";
 import Section from "../components/Section";
 
 export default function Favourites() {
-  const [movies, setMovies] = React.useState();
-  // React.useEffect(() => {
-  //   setMovies(JSON.parse(localStorage.getItem("favourites")) || []);
-  // }, [movies]);
+  const items = JSON.parse(localStorage.getItem("favourites"));
+  const [movies, setMovies] = useState(items);
+  const handleChange = (val) => {
+    setMovies(val);
+  };
   return (
     <Section title="Your favourites">
-      <MoviesGrid movies={movies} />
+      <MoviesGrid handleChange={handleChange} movies={movies} />
     </Section>
   );
 }

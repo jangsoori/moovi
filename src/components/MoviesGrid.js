@@ -5,7 +5,7 @@ import Card from "./Card";
 
 export const StyledGrid = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
   gap: 3rem;
   padding-bottom: 2rem;
 `;
@@ -14,10 +14,12 @@ export const StyledCard = styled.li`
   color: black;
 `;
 
-const renderMovies = (list) => {
-  return list.map((item, i) => <Card movie={item} key={i} />);
-};
 export default function MoviesGrid(props) {
+  const renderMovies = (list) => {
+    return list.map((item, i) => (
+      <Card handleChange={props.handleChange} movie={item} key={i} />
+    ));
+  };
   if (!props.movies) {
     return null;
   }
