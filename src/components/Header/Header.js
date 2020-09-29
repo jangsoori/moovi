@@ -13,7 +13,7 @@ const StyledHeader = styled.header`
   align-items: center;
 `;
 
-export const Header = () => {
+export const Header = (props) => {
   return (
     <StyledHeader>
       <Logo />

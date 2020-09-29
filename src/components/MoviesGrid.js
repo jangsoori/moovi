@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import PropTypes from "prop-types";
 import Card from "./Card";
+import Loading from "./Loading";
 export const StyledGrid = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
@@ -17,8 +18,6 @@ const renderMovies = (list) => {
   return list.map((item, i) => <Card movie={item} key={i} />);
 };
 export default function MoviesGrid(props) {
-  console.log(props);
-
   if (!props.movies) {
     return null;
   }

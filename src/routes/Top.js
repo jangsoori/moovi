@@ -1,34 +1,26 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import Section from "../components/Section";
-import { getTopMovies, clearOnUnmount } from "../redux/actions";
-import PropTypes from "prop-types";
+
 import MoviesGrid from "../components/MoviesGrid";
-function Top({ movies, getTopMovies, clearOnUnmount }) {
-  useEffect(() => {
-    getTopMovies();
-    return () => {
-      clearOnUnmount();
-    };
-  }, []);
-  if (!movies) {
-    return <Section title="Loading..."></Section>;
-  }
+import { useFetch } from "../hooks/useFetch";
+import Loading from "../components/Loading";
+
+const API_KEY = process.env.API_KEY;
+
+function Top() {
+  const movies = useFetch(
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
+    {}
+  );
   return (
     <Section title="Top rated">
-      <MoviesGrid movies={movies.results} />
+      {!movies.response ? (
+        <Loading />
+      ) : (
+        <MoviesGrid movies={movies.response.results} />
+      )}
     </Section>
   );
 }
 
-Top.propTypes = {
-  getTopMovies: PropTypes.func,
-  movies: PropTypes.object,
-};
-
-const mapStateToProps = (state) => {
-  return {
-    movies: state.movies,
-  };
-};
-export default connect(mapStateToProps, { getTopMovies, clearOnUnmount })(Top);
+export default Top;
