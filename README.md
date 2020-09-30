@@ -33,6 +33,10 @@
 
 [![Search page](https://i.imgur.com/JjAZdwx.png)]()
 
+## Cool GIF
+
+[![Cool GIF](http://g.recordit.co/JK3yzkb0ou.gif)]()
+
 ## Installation
 
 - First, install all dependencies by running: npm install
