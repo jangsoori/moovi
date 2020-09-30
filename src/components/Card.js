@@ -121,7 +121,7 @@ function Card(props) {
         onClick={() => history.push(`/movies/${id}`)}
         src={
           poster_path
-            ? `http://image.tmdb.org/t/p/w185${poster_path}`
+            ? `https://image.tmdb.org/t/p/w185${poster_path}`
             : noPoster
         }
         alt=""
