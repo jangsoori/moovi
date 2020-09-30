@@ -3,6 +3,7 @@ import { NavLink as Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const StyledSidenavWrapper = styled.nav`
+  z-index: 101;
   grid-row: 2/3;
   grid-column: 1/2;
   padding-top: 5rem;
@@ -46,6 +47,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Burger = styled.div`
+  z-index: 1;
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
