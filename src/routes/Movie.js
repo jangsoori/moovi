@@ -22,6 +22,9 @@ const MoviePosterWrapper = styled.section``;
 const MoviePoster = styled.img`
   border-radius: 2px;
   max-height: 500px;
+  @media only screen and (max-width: 400px) {
+    max-height: 300px;
+  }
 `;
 const MovieInfoWrapper = styled.section`
   color: black;
