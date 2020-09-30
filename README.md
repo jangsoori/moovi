@@ -19,6 +19,10 @@
 - Shows upcoming releases
 - Possibility to add to favourites or watch later list (uses local storage)
 
+## Live
+
+- Live version available here - [![Click](https://moooovi.netlify.app/)]()
+
 ## Change log
 
 **v.1.00**
