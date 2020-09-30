@@ -19,6 +19,12 @@
 - Shows upcoming releases
 - Possibility to add to favourites or watch later list (uses local storage)
 
+## Change log
+
+**v.1.00**
+
+- Functional app, wohooo!
+
 ## Images
 
 **Home page**
