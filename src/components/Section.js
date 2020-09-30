@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const StyledSection = styled.section`
   padding: 5rem 6.8rem;
   padding-bottom: 0;
-
+  position: relative;
   @media only screen and (max-width: 1000px) {
     padding-right: 3rem;
   }
