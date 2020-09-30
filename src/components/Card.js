@@ -74,6 +74,8 @@ const API_KEY = process.env.API_KEY;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function Card(props) {
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   const { poster_path, title, vote_average, genre_ids, id } = props.movie;
   const fetchGenres = useFetch(
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
@@ -95,12 +97,24 @@ function Card(props) {
     });
   };
 
+  //HANDLE FAVOURITES
+
   const saveItem = () => {
     let existingEntries = JSON.parse(localStorage.getItem("favourites")) || [];
     existingEntries.push(props.movie);
     localStorage.setItem("favourites", JSON.stringify(existingEntries));
     props.handleChange && props.handleChange(existingEntries);
   };
+  const deleteItem = (id) => {
+    let existingEntries = JSON.parse(localStorage.getItem("favourites")) || [];
+    const filtered = existingEntries.filter((entry) => entry.id !== id);
+    localStorage.setItem("favourites", JSON.stringify(filtered));
+    props.handleChange && props.handleChange(filtered);
+  };
+  //Check if item is in favourites
+  const isFav = JSON.parse(localStorage.getItem("favourites")).some(
+    (fav) => fav.id === id
+  );
 
   return (
     <StyledCard>
@@ -115,8 +129,15 @@ function Card(props) {
       </StyledLink>
       <StyledActions>
         <StyledAction
-          onClick={() => saveItem()}
-          className={`far fa-heart fa-2x`}
+          onClick={() => {
+            if (!isFav) {
+              saveItem();
+            } else {
+              deleteItem(id);
+            }
+            forceUpdate();
+          }}
+          className={`fa${isFav ? "s" : "r"} fa-heart fa-2x`}
         ></StyledAction>
         <StyledAction className="far fa-clock fa-2x"></StyledAction>
       </StyledActions>
