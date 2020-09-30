@@ -11,6 +11,17 @@ const StyledHeader = styled.header`
   display: grid;
   grid-template-columns: 240px 1fr;
   align-items: center;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+  @media only screen and (max-width: 400px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    justify-items: center;
+    padding: 2rem 0;
+  }
 `;
 
 export const Header = (props) => {

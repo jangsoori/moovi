@@ -10,6 +10,10 @@ export const StyledGrid = styled.ul`
   grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
   gap: 3rem;
   padding-bottom: 2rem;
+  justify-items: space-between;
+  @media only screen and (max-width: 460px) {
+    justify-items: center;
+  }
 `;
 
 export const StyledCard = styled.li`

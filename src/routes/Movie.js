@@ -13,10 +13,15 @@ const MovieWrapper = styled.section`
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 5rem;
+  @media only screen and (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
 `;
 const MoviePosterWrapper = styled.section``;
 const MoviePoster = styled.img`
   border-radius: 2px;
+  max-height: 500px;
 `;
 const MovieInfoWrapper = styled.section`
   color: black;
@@ -35,11 +40,13 @@ const Genre = styled.li`
   margin-right: 5px;
 `;
 const DetailsTitle = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 2px;
 `;
-const DetailsContent = styled.section``;
+const DetailsContent = styled.section`
+  font-size: 1.6rem;
+`;
 
 function Movie({ match }) {
   console.log(match.params.id);
@@ -70,6 +77,12 @@ function Movie({ match }) {
         </MoviePosterWrapper>
         <MovieInfoWrapper>
           <MovieInfoItems>
+            <MovieInfoItem>
+              <DetailsTitle>The Plot</DetailsTitle>
+              <DetailsContent>
+                <p className="plot">{movie.response.overview}</p>
+              </DetailsContent>
+            </MovieInfoItem>
             <MovieInfoItem>
               <DetailsTitle>Genres</DetailsTitle>
               <DetailsContent style={{ display: "flex" }}>
@@ -105,12 +118,6 @@ function Movie({ match }) {
               <DetailsTitle>Runtime</DetailsTitle>
               <DetailsContent>
                 <p>{movie.response.runtime} min</p>
-              </DetailsContent>
-            </MovieInfoItem>
-            <MovieInfoItem>
-              <DetailsTitle>Plot</DetailsTitle>
-              <DetailsContent>
-                <p>{movie.response.overview}</p>
               </DetailsContent>
             </MovieInfoItem>
             <MovieInfoItem>

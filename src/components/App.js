@@ -9,6 +9,9 @@ const StyledApp = styled.section`
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
   height: 100%;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 function App() {

@@ -26,6 +26,12 @@ const StyledSearchInput = styled.input.attrs(() => ({
     color: white;
     opacity: 1;
   }
+  @media only screen and (max-width: 500px) {
+    width: 100%;
+  }
+  @media only screen and (max-width: 400px) {
+    height: 100%;
+  }
 `;
 
 // const StyledSuggestions = styled.ul`
