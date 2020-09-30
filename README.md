@@ -19,6 +19,12 @@
 - Shows upcoming releases
 - Possibility to add to favourites or watch later list (uses local storage)
 
+## Todo
+
+- Work on accessibility
+- Fetch more pages (currently only one)
+- Work on movie details layout
+
 ## Live
 
 - Live version available here - [Click](https://moooovi.netlify.app/)
