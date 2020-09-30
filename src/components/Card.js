@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 export const StyledCard = styled.li`
   position: relative;
   width: 185px;
-
+  display: grid;
+  ${"" /* grid-template-rows: 1fr auto auto; */}
   transition: transform 0.2s ease;
 
   ${"" /* Removes buggy animation "shake" */}
   backface-visibility: hidden;
-  :hover {
-    transform: scale(1.1);
-    cursor: pointer;
+  @media only screen and (min-width: 1000px) {
+    :hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
   }
 `;
 
 const StyledLink = styled(Link)``;
 const StyledImg = styled.img`
   box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.5);
+  height: 278px;
 `;
 const StyledTitle = styled.p`
   font-size: 1.8rem;
@@ -27,14 +31,6 @@ const StyledTitle = styled.p`
   align-self: top;
 `;
 
-const StyledMeta = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-`;
-const StyledMetaItem = styled.p`
-  color: black;
-  margin-right: 4px;
-`;
 const StyledScore = styled.p`
   position: absolute;
   right: 0;
@@ -61,14 +57,17 @@ const StyledActions = styled.section`
 const StyledAction = styled.i`
   margin-right: 1rem;
   color: black;
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
+  @media only screen and (min-width: 1000px) {
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+    }
   }
-  &.fas {
+
+  &.fas,
+  &.far {
     color: ${({ theme }) => theme.colors.primary};
   }
 `;
-const API_KEY = process.env.API_KEY;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,70 +75,79 @@ const API_KEY = process.env.API_KEY;
 function Card(props) {
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
-  const { poster_path, title, vote_average, genre_ids, id } = props.movie;
-  const fetchGenres = useFetch(
-    `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
-  );
-  const genres = [];
-  //For every item in genres, check if its ID equals to items in an array. If yes, render Genre name
-  fetchGenres.response &&
-    fetchGenres.response.genres.filter((genre) => {
-      return genre_ids.forEach((id) => {
-        if (genre.id === id) {
-          genres.push(genre);
-        }
-      });
-    });
+  const { poster_path, title, vote_average, id } = props.movie;
 
-  const renderGenres = (list) => {
-    return list.map((genre) => {
-      return <StyledMetaItem key={genre.id}>{genre.name}</StyledMetaItem>;
-    });
-  };
-
+  const history = useHistory();
   //HANDLE FAVOURITES
 
-  const saveItem = () => {
+  const saveFav = () => {
     let existingEntries = JSON.parse(localStorage.getItem("favourites")) || [];
     existingEntries.push(props.movie);
     localStorage.setItem("favourites", JSON.stringify(existingEntries));
-    props.handleChange && props.handleChange(existingEntries);
+    props.handleFav && props.handleFav(existingEntries);
   };
-  const deleteItem = (id) => {
+  const deleteFav = (id) => {
     let existingEntries = JSON.parse(localStorage.getItem("favourites")) || [];
     const filtered = existingEntries.filter((entry) => entry.id !== id);
     localStorage.setItem("favourites", JSON.stringify(filtered));
-    props.handleChange && props.handleChange(filtered);
+    props.handleFav && props.handleFav(filtered);
   };
   //Check if item is in favourites
-  const isFav = JSON.parse(localStorage.getItem("favourites")).some(
-    (fav) => fav.id === id
-  );
+  const isFav = () => {
+    let existingEntries = JSON.parse(localStorage.getItem("favourites")) || [];
+    return existingEntries.some((fav) => fav.id === id);
+  };
+  //HANDLE WATCH LATER
 
+  const saveWatchLater = () => {
+    let existingEntries = JSON.parse(localStorage.getItem("watchLater")) || [];
+    existingEntries.push(props.movie);
+    localStorage.setItem("watchLater", JSON.stringify(existingEntries));
+    props.handleWatchLater && props.handlewatchLater(existingEntries);
+  };
+  const deleteWatchLater = (id) => {
+    let existingEntries = JSON.parse(localStorage.getItem("watchLater")) || [];
+    const filtered = existingEntries.filter((entry) => entry.id !== id);
+    localStorage.setItem("watchLater", JSON.stringify(filtered));
+    props.handleWatchLater && props.handleWatchLater(filtered);
+  };
+  //Check if item is in watchLater
+  const isWatchLater = () => {
+    let existingEntries = JSON.parse(localStorage.getItem("watchLater")) || [];
+    return existingEntries.some((watchLater) => watchLater.id === id);
+  };
   return (
     <StyledCard>
-      <StyledLink to={`/movies/${id}`}>
-        <StyledImg
-          src={`http://image.tmdb.org/t/p/w185${poster_path}`}
-          alt=""
-        />
-        <StyledTitle>{title}</StyledTitle>
-        <StyledMeta>{renderGenres(genres)}</StyledMeta>
-        <StyledScore>{vote_average.toFixed(1)}</StyledScore>
-      </StyledLink>
+      <StyledImg
+        onClick={() => history.push(`/movies/${id}`)}
+        src={`http://image.tmdb.org/t/p/w185${poster_path}`}
+        alt=""
+      />
+      <StyledTitle>{title}</StyledTitle>
+      <StyledScore>{vote_average.toFixed(1)}</StyledScore>
       <StyledActions>
         <StyledAction
           onClick={() => {
-            if (!isFav) {
-              saveItem();
+            if (!isFav()) {
+              saveFav();
             } else {
-              deleteItem(id);
+              deleteFav(id);
             }
             forceUpdate();
           }}
-          className={`fa${isFav ? "s" : "r"} fa-heart fa-2x`}
+          className={`fa${isFav() ? "s" : "r"} fa-heart fa-2x`}
         ></StyledAction>
-        <StyledAction className="far fa-clock fa-2x"></StyledAction>
+        <StyledAction
+          onClick={() => {
+            if (!isWatchLater()) {
+              saveWatchLater();
+            } else {
+              deleteWatchLater(id);
+            }
+            forceUpdate();
+          }}
+          className={`fa${isWatchLater() ? "s" : "r"} fa-clock fa-2x`}
+        ></StyledAction>
       </StyledActions>
     </StyledCard>
   );
