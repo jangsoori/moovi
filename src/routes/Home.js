@@ -8,8 +8,8 @@ import Loading from "../components/Loading";
 
 const StyledTitle = styled.p`
   color: black;
-  font-size: 2vw;
-  margin-bottom: 2rem;
+  font-size: 3rem;
+  margin-bottom: 5rem;
 `;
 const Wrapper = styled.section`
   display: flex;
@@ -32,7 +32,10 @@ const StyledSearch = styled.input.attrs(() => ({
   color: black;
   border-radius: 0.5rem 0 0 0.5rem;
   width: 50%;
-  font-size: 2vw;
+  font-size: 3rem;
+  @media only screen and (max-width: 1000px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const StyledBtn = styled.button.attrs(() => ({
@@ -41,13 +44,16 @@ const StyledBtn = styled.button.attrs(() => ({
   height: 100%;
   border: 1px solid black;
   border-left: none;
-  font-size: 2vw;
+  font-size: 3rem;
   padding: 1rem 2rem;
   font-family: inherit;
   border-radius: 0 0.5rem 0.5rem 0;
   background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   cursor: pointer;
+  @media only screen and (max-width: 1000px) {
+    font-size: 1.4rem;
+  }
 `;
 const WrapperTrending = styled.section`
   display: flex;
@@ -78,7 +84,7 @@ export default function Home() {
   return (
     <Section title="Welcome to moovi">
       <Wrapper>
-        <StyledTitle>Explore now</StyledTitle>
+        <StyledTitle>Explore</StyledTitle>
         <form
           onSubmit={(e) => {
             handleSubmit(e);
@@ -97,7 +103,7 @@ export default function Home() {
         </form>
       </Wrapper>
       <WrapperTrending>
-        <TrendingTitle>Trending now</TrendingTitle>
+        <TrendingTitle>Trending</TrendingTitle>
         {!movies.response ? (
           <Loading />
         ) : (
