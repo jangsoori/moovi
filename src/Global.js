@@ -14,6 +14,9 @@ html,body,#root{
 html{
   font-size:62.5%;
 font-height:1.2;
+${"" /* removes on click lag on mobile devices */}
+touch-action: manipulation;
+
 };
   body {
     color: ${({ theme }) => theme.colors.secondary};
