@@ -9,8 +9,11 @@ export default function Saved() {
     setMovies(val);
   };
   return (
-    <Section title={`Watch later (${movies.length})`}>
-      <MoviesGrid handleWatchLater={handleWatchLater} movies={movies} />
+    <Section title={`Watch later (${movies ? movies.length : "0"})`}>
+      <MoviesGrid
+        handleWatchLater={handleWatchLater}
+        movies={movies && movies}
+      />
     </Section>
   );
 }

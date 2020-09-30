@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MoviesGrid from "../components/MoviesGrid";
 import Section from "../components/Section";
 
@@ -10,8 +10,8 @@ export default function Favourites() {
     console.log(val);
   };
   return (
-    <Section title={`Your favourites (${movies.length})`}>
-      <MoviesGrid handleFav={handleFav} movies={movies} />
+    <Section title={`Your favourites (${movies ? movies.length : "0"})`}>
+      <MoviesGrid handleFav={handleFav} movies={movies && movies} />
     </Section>
   );
 }
