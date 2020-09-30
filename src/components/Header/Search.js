@@ -27,7 +27,7 @@ const StyledSearchInput = styled.input.attrs(() => ({
     opacity: 1;
   }
   @media only screen and (max-width: 500px) {
-    width: 100%;
+    width: 95%;
   }
   @media only screen and (max-width: 400px) {
     height: 100%;
