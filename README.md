@@ -35,7 +35,7 @@
 
 ## Cool GIF
 
-[![Cool GIF](https://i.imgur.com/nditJot.mp4)]()
+![Cool GIF](https://i.imgur.com/nditJot.mp4)
 
 ## Installation
 
