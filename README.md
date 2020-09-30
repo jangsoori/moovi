@@ -13,9 +13,9 @@
 
 ## Images
 
-[![Home page](https://imgur.com/xGjfX4H)]()
-[![Favourites page](https://imgur.com/kbxMWQx)]()
-[![Search page](https://imgur.com/JjAZdwx)]()
+[![Home page](https://i.imgur.com/xGjfX4H.png)]()
+[![Favourites page](https://i.imgur.com/kbxMWQx.png)]()
+[![Search page](https://i.imgur.com/JjAZdwx.png)]()
 
 ## Installation
 
