@@ -6,6 +6,7 @@ import styled from "styled-components";
 import "regenerator-runtime/runtime"; //REDUX IMPORTS
 import Loading from "../components/Loading";
 import { useFetch } from "../hooks/useFetch";
+import noPoster from "../assets/errBig.png";
 
 const API_KEY = process.env.API_KEY;
 
@@ -75,7 +76,11 @@ function Movie({ match }) {
       <MovieWrapper>
         <MoviePosterWrapper>
           <MoviePoster
-            src={`https://image.tmdb.org/t/p/w400${movie.response.poster_path}`}
+            src={
+              movie.response.poster_path
+                ? `https://image.tmdb.org/t/p/w400${movie.response.poster_path}`
+                : noPoster
+            }
           />
         </MoviePosterWrapper>
         <MovieInfoWrapper>

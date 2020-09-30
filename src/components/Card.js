@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { Link, useHistory } from "react-router-dom";
-import { useFetch } from "../hooks/useFetch";
+import { useHistory } from "react-router-dom";
+import noPoster from "../assets/err.png";
 export const StyledCard = styled.li`
   position: relative;
   width: 185px;
@@ -20,7 +20,6 @@ export const StyledCard = styled.li`
   }
 `;
 
-const StyledLink = styled(Link)``;
 const StyledImg = styled.img`
   box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.5);
   height: 278px;
@@ -103,7 +102,7 @@ function Card(props) {
     let existingEntries = JSON.parse(localStorage.getItem("watchLater")) || [];
     existingEntries.push(props.movie);
     localStorage.setItem("watchLater", JSON.stringify(existingEntries));
-    props.handleWatchLater && props.handlewatchLater(existingEntries);
+    props.handleWatchLater && props.handleWatchLater(existingEntries);
   };
   const deleteWatchLater = (id) => {
     let existingEntries = JSON.parse(localStorage.getItem("watchLater")) || [];
@@ -120,7 +119,11 @@ function Card(props) {
     <StyledCard>
       <StyledImg
         onClick={() => history.push(`/movies/${id}`)}
-        src={`http://image.tmdb.org/t/p/w185${poster_path}`}
+        src={
+          poster_path
+            ? `http://image.tmdb.org/t/p/w185${poster_path}`
+            : noPoster
+        }
         alt=""
       />
       <StyledTitle>{title}</StyledTitle>
@@ -155,6 +158,8 @@ function Card(props) {
 
 Card.propTypes = {
   movie: PropTypes.object,
+  handleFav: PropTypes.func,
+  handleWatchLater: PropTypes.func,
 };
 
 export default Card;
