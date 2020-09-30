@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 const StyledLogoWrapper = styled.section``;
@@ -11,9 +12,10 @@ const StyledLogo = styled.img`
 `;
 
 export default function Logo() {
+  const history = useHistory();
   return (
     <StyledLogoWrapper>
-      <StyledLogo src={logo} alt="Mooovi" />
+      <StyledLogo onClick={() => history.push("/")} src={logo} alt="Mooovi" />
     </StyledLogoWrapper>
   );
 }
