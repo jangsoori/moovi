@@ -11,10 +11,26 @@
 - Parcel for bundling
 - Netlify for deployment
 
+## Features
+
+- Shows trending movies
+- Shows new releases
+- Shows top rated movies
+- Shows upcoming releases
+- Possibility to add to favourites or watch later list (uses local storage)
+
 ## Images
 
+**Home page**
+
 [![Home page](https://i.imgur.com/xGjfX4H.png)]()
+
+**Favourites page**
+
 [![Favourites page](https://i.imgur.com/kbxMWQx.png)]()
+
+**Search page**
+
 [![Search page](https://i.imgur.com/JjAZdwx.png)]()
 
 ## Installation
@@ -27,14 +43,6 @@
 ### Clone
 
 - Clone this repo to your local machine using `https://github.com/jangsoori/moovi`
-
-## Features
-
-- Shows trending movies
-- Shows new releases
-- Shows top rated movies
-- Shows upcoming releases
-- Possibility to add to favourites or watch later list (uses local storage)
 
 ## License
 
