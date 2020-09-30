@@ -5,6 +5,7 @@ import logo from "../../assets/logo.png";
 const StyledLogoWrapper = styled.section``;
 const StyledLogo = styled.img`
   padding-left: 2rem;
+  cursor: pointer;
   @media only screen and (max-width: 400px) {
     padding-left: 0;
     justify-self: center;
