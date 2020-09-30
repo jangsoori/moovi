@@ -1,13 +1,14 @@
 import React from "react";
 import Section from "../components/Section";
 import MoviesGrid from "../components/MoviesGrid";
-import Search from "../components/Header/Search";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
+import Loading from "../components/Loading";
 
 const StyledTitle = styled.p`
   color: black;
-  font-size: 3rem;
+  font-size: 2vw;
   margin-bottom: 2rem;
 `;
 const Wrapper = styled.section`
@@ -17,6 +18,7 @@ const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 8rem;
 `;
 const StyledSearch = styled.input.attrs(() => ({
   type: "text",
@@ -30,7 +32,7 @@ const StyledSearch = styled.input.attrs(() => ({
   color: black;
   border-radius: 0.5rem 0 0 0.5rem;
   width: 50%;
-  font-size: 3rem;
+  font-size: 2vw;
 `;
 
 const StyledBtn = styled.button.attrs(() => ({
@@ -39,7 +41,7 @@ const StyledBtn = styled.button.attrs(() => ({
   height: 100%;
   border: 1px solid black;
   border-left: none;
-  font-size: 3rem;
+  font-size: 2vw;
   padding: 1rem 2rem;
   font-family: inherit;
   border-radius: 0 0.5rem 0.5rem 0;
@@ -47,10 +49,26 @@ const StyledBtn = styled.button.attrs(() => ({
   color: white;
   cursor: pointer;
 `;
-export default function Home(props) {
+const WrapperTrending = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TrendingTitle = styled.p`
+  color: black;
+  font-size: 3rem;
+  margin-bottom: 5rem;
+  align-self: center;
+`;
+export default function Home() {
+  const API_KEY = process.env.API_KEY;
+  const movies = useFetch(
+    `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
+  );
   const [input, setInput] = React.useState("");
   const history = useHistory();
 
+  console.log(movies.response);
   const handleSubmit = (e) => {
     e.preventDefault();
     history.push(`/search/${input}`);
@@ -78,6 +96,14 @@ export default function Home(props) {
           <StyledBtn type="submit">Search now</StyledBtn>
         </form>
       </Wrapper>
+      <WrapperTrending>
+        <TrendingTitle>Trending now</TrendingTitle>
+        {!movies.response ? (
+          <Loading />
+        ) : (
+          <MoviesGrid movies={movies.response.results} />
+        )}
+      </WrapperTrending>
     </Section>
   );
 }
