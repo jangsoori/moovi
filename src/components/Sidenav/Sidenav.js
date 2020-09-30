@@ -114,7 +114,7 @@ export default function Sidenav() {
         <StyledSidenavContent>
           <StyledList>
             <StyledListItem>
-              <StyledLink exact to="/">
+              <StyledLink onClick={() => setMenuActive(false)} exact to="/">
                 Home
               </StyledLink>
             </StyledListItem>
