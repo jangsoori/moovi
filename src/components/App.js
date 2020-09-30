@@ -4,7 +4,8 @@ import styled from "styled-components";
 import Routes from "../routes/Routes";
 import Header from "./Header/Header";
 import Sidenav from "./Sidenav/Sidenav";
-const dotenv = require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 const StyledApp = styled.section`
   display: grid;
   grid-template-columns: auto 1fr;
