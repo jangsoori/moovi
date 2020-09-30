@@ -2,6 +2,8 @@ import styled from "styled-components";
 import React from "react";
 import PropTypes from "prop-types";
 import Card from "./Card";
+import { useFetch } from "../hooks/useFetch";
+const API_KEY = process.env.API_KEY;
 
 export const StyledGrid = styled.ul`
   display: grid;
@@ -17,7 +19,12 @@ export const StyledCard = styled.li`
 export default function MoviesGrid(props) {
   const renderMovies = (list) => {
     return list.map((item, i) => (
-      <Card handleChange={props.handleChange} movie={item} key={i} />
+      <Card
+        handleFav={props.handleFav}
+        handleWatchLater={props.handleWatchLater}
+        movie={item}
+        key={i}
+      />
     ));
   };
   if (!props.movies) {
