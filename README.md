@@ -21,7 +21,7 @@
 
 ## Live
 
-- Live version available here - [![Click](https://moooovi.netlify.app/)]()
+- Live version available here - [Click](https://moooovi.netlify.app/)
 
 ## Change log
 
