@@ -2,8 +2,6 @@ import styled from "styled-components";
 import React from "react";
 import PropTypes from "prop-types";
 import Card from "./Card";
-import { useFetch } from "../hooks/useFetch";
-const API_KEY = process.env.API_KEY;
 
 export const StyledGrid = styled.ul`
   display: grid;
@@ -39,4 +37,6 @@ export default function MoviesGrid(props) {
 
 MoviesGrid.propTypes = {
   movies: PropTypes.array,
+  handleFav: PropTypes.func,
+  handleWatchLater: PropTypes.func,
 };
