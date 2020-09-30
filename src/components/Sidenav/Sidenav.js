@@ -47,7 +47,8 @@ const StyledLink = styled(Link)`
 
 const Burger = styled.div`
   position: fixed;
-  top: 5rem;
+  top: 50%;
+  transform: translateY(-50%);
   left: 0px;
   height: 4rem;
   width: 4rem;
@@ -57,15 +58,16 @@ const Burger = styled.div`
   border-radius: 0 50% 50% 0;
   background: white;
   padding: 10px 10px;
-  border: 1px solid black;
+  box-shadow: 0 0 5px 0 ${({ theme }) => theme.colors.primary};
   @media only screen and (max-width: 600px) {
     display: flex;
   }
   span {
     width: 100%;
     height: 4px;
-    background: black;
+    background: ${({ theme }) => theme.colors.primary};
     z-index: 100;
+    border-radius: 5px;
   }
 `;
 
@@ -83,6 +85,8 @@ const CloseBtn = styled.div`
     display: flex;
   }
   span {
+    border-radius: 5px;
+
     width: 100%;
     height: 4px;
     background: white;
@@ -113,19 +117,29 @@ export default function Sidenav() {
               </StyledLink>
             </StyledListItem>
             <StyledListItem>
-              <StyledLink to="/new">New releases</StyledLink>
+              <StyledLink onClick={() => setMenuActive(false)} to="/new">
+                New releases
+              </StyledLink>
             </StyledListItem>
             <StyledListItem>
-              <StyledLink to="/top">Top rated</StyledLink>
+              <StyledLink onClick={() => setMenuActive(false)} to="/top">
+                Top rated
+              </StyledLink>
             </StyledListItem>
             <StyledListItem>
-              <StyledLink to="/upcoming">Coming soon</StyledLink>
+              <StyledLink onClick={() => setMenuActive(false)} to="/upcoming">
+                Coming soon
+              </StyledLink>
             </StyledListItem>
             <StyledListItem>
-              <StyledLink to="/favourites">Favourites</StyledLink>
+              <StyledLink onClick={() => setMenuActive(false)} to="/favourites">
+                Favourites
+              </StyledLink>
             </StyledListItem>
             <StyledListItem>
-              <StyledLink to="/saved">Watch later</StyledLink>
+              <StyledLink onClick={() => setMenuActive(false)} to="/saved">
+                Watch later
+              </StyledLink>
             </StyledListItem>
           </StyledList>
         </StyledSidenavContent>
